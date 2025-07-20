@@ -76,7 +76,7 @@ const Hero = () => {
             <img 
               src="/dzrttrzr.png" 
               alt="DZRT TRZR" 
-              className="max-w-full h-auto max-h-32 md:max-h-48 lg:max-h-64"
+              className="mx-auto w-auto h-auto max-w-[280px] sm:max-w-[320px] md:max-w-[400px] lg:max-w-[480px] xl:max-w-[560px] max-h-32 sm:max-h-40 md:max-h-48 lg:max-h-56 xl:max-h-64"
             />
           </motion.div>
         </motion.div>
@@ -110,7 +110,7 @@ const Hero = () => {
             className="px-8 py-4 border-2 border-primary-500 text-white font-semibold rounded-lg hover:bg-primary-500 transition-colors duration-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById('tour').scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => document.getElementById('venues').scrollIntoView({ behavior: 'smooth' })}
           >
             Played Venues
           </motion.button>
