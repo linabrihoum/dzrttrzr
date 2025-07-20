@@ -1,6 +1,5 @@
-import { compareAsc, compareDesc, parseISO } from "date-fns";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { ClassValue, clsx } from "clsx";
+import { compareAsc, parseISO } from "date-fns";
+import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export const cx = (...classNames) => classNames.filter(Boolean).join(" ");

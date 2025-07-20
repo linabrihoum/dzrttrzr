@@ -24,7 +24,6 @@ const Player = () => {
   const [isShuffled, setIsShuffled] = useState(false);
   const [isRepeating, setIsRepeating] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const currentTrack = {
     title: 'DZRT TRZR Vol.5',

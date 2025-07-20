@@ -1,4 +1,4 @@
-import AboutCoverSection from "@/src/components/About/AboutCoverSection";
+import About from "@/components/About";
 
 // Custom metadata
 // export const metadata = {
@@ -7,10 +7,10 @@ import AboutCoverSection from "@/src/components/About/AboutCoverSection";
 //   description: `Here are some details about myself.`,
 // };
 
-export default function About() {
+export default function AboutPage() {
   return (
     <section>
-      <AboutCoverSection />
+      <About />
     </section>
   );
 }

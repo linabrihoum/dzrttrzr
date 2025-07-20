@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Instagram, Twitter, Music, Cloud } from 'lucide-react';
-import { useState } from 'react';
+import { Instagram, Twitter, Cloud } from 'lucide-react';
 
 const Hero = () => {
 

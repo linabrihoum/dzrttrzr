@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Calendar, MapPin, Ticket, ExternalLink } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 const Venues = () => {
   const ref = useRef(null);

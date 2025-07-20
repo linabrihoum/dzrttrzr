@@ -2,13 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { Play, Pause, ExternalLink, Heart } from 'lucide-react';
+import { useRef } from 'react';
+import { ExternalLink, Heart } from 'lucide-react';
 
 const Music = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const [playingTrack, setPlayingTrack] = useState(null);
 
   const releases = [
     {
@@ -78,10 +77,6 @@ const Music = () => {
       soundcloudUrl: 'https://soundcloud.com/dzrttrzr/imsety?ref=clipboard&p=i&c=0&si=B12DF3DB600F4244B158780B8B8868BA&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
     },
   ];
-
-  const toggleTrackPlay = (trackId) => {
-    setPlayingTrack(playingTrack === trackId ? null : trackId);
-  };
 
   const toggleLike = (trackId) => {
     // In a real app, this would update the backend
