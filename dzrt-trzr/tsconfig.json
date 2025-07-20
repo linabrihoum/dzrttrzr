@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Navigation/NevLink.js", "src/components/Navigation/index.js", "src/app/about/page.js", "src/components/About/AboutSection.js"],
   "exclude": ["node_modules"]
 }

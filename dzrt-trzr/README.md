@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DZRT TRZR - Electronic Music Artist Website
+
+A modern, responsive website for the electronic music artist DZRT TRZR, built with Next.js 14, Tailwind CSS, and Framer Motion.
+
+## Features
+
+- **Responsive Design**: Mobile-first approach with smooth animations
+- **Dark Theme**: Black background with red accents (#ff0000 to #b30000)
+- **Smooth Animations**: Framer Motion powered animations and transitions
+- **Interactive Components**: Hover effects, parallax scrolling, and animated elements
+- **Music Player**: Mini audio player with playback controls
+- **Tour Management**: Interactive tour dates with ticket status
+- **Contact Forms**: Newsletter signup and contact forms
+- **Social Integration**: Social media links with animated icons
+
+## Sections
+
+1. **Header**: Fixed navigation with glassmorphism effect
+2. **Hero**: Animated background with floating particles and CTA buttons
+3. **About**: Artist biography with statistics and features
+4. **Music**: Grid layout of releases with play functionality
+5. **Tour**: Table format showing tour dates and ticket availability
+6. **Contact**: Social links and contact forms
+7. **Footer**: Newsletter signup and site links
+8. **Player**: Mini audio player with controls
+
+## Technologies Used
+
+- **Next.js 14**: React framework with App Router
+- **Tailwind CSS**: Utility-first CSS framework
+- **Framer Motion**: Animation library
+- **Lucide React**: Icon library
+- **TypeScript**: Type safety (optional)
 
 ## Getting Started
 
-First, run the development server:
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+2. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── globals.css
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/
+│   ├── Header.js
+│   ├── Hero.js
+│   ├── About.js
+│   ├── Music.js
+│   ├── Tour.js
+│   ├── Contact.js
+│   ├── Footer.js
+│   └── Player.js
+└── hooks/
+    └── useScroll.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Customization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Colors
+The theme uses a black and red color scheme:
+- Primary red: `#ff0000` to `#b30000`
+- Background: `#000000`
+- Text: `#ffffff` with gray accents
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Animations
+- Smooth scroll navigation
+- Parallax background effects
+- Hover animations on interactive elements
+- Section reveal animations
+- Text glow effects
 
-## Learn More
+### Components
+All components are modular and can be easily customized:
+- Update content in component files
+- Modify styles using Tailwind classes
+- Add new sections by creating new components
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project can be deployed to Vercel, Netlify, or any other hosting platform that supports Next.js.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is for demonstration purposes. All content and branding belong to DZRT TRZR.
