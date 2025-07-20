@@ -3,17 +3,12 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Play, Pause, ExternalLink, Heart, Volume2, SkipBack, SkipForward } from 'lucide-react';
+import { Play, Pause, ExternalLink, Heart } from 'lucide-react';
 
 const Music = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [playingTrack, setPlayingTrack] = useState(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [volume, setVolume] = useState(1);
-  const audioRef = useRef(null);
 
   const releases = [
     {
@@ -95,53 +90,6 @@ const Music = () => {
 
   const openSoundCloud = (url) => {
     window.open(url, '_blank', 'noopener,noreferrer');
-  };
-
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  const handleTimeUpdate = () => {
-    if (audioRef.current) {
-      setCurrentTime(audioRef.current.currentTime);
-    }
-  };
-
-  const handleLoadedMetadata = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration);
-    }
-  };
-
-  const handleSeek = (e) => {
-    if (audioRef.current) {
-      const rect = e.currentTarget.getBoundingClientRect();
-      const percent = (e.clientX - rect.left) / rect.width;
-      const newTime = percent * duration;
-      audioRef.current.currentTime = newTime;
-      setCurrentTime(newTime);
-    }
-  };
-
-  const handleVolumeChange = (e) => {
-    const newVolume = parseFloat(e.target.value);
-    setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
-    }
-  };
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -276,71 +224,6 @@ const Music = () => {
               </div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* Audio Player for Vol.5 */}
-        <motion.div
-          className="mt-16 bg-black/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 1.0 }}
-        >
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-white mb-2">Latest Mix - Vol.5</h3>
-            <p className="text-gray-400">Listen to the full mix directly on the site</p>
-          </div>
-          
-          {/* Hidden Audio Element */}
-          <audio
-            ref={audioRef}
-            src="/vol5-audio.mp3"
-            onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleLoadedMetadata}
-            onEnded={() => setIsPlaying(false)}
-          />
-          
-          {/* Player Controls */}
-          <div className="flex items-center justify-center space-x-6 mb-6">
-            <motion.button
-              onClick={togglePlay}
-              className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center hover-glow"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-            </motion.button>
-          </div>
-          
-          {/* Progress Bar */}
-          <div className="mb-4">
-            <div 
-              className="w-full h-2 bg-gray-700 rounded-full cursor-pointer relative"
-              onClick={handleSeek}
-            >
-              <div 
-                className="h-full bg-primary-500 rounded-full transition-all duration-100"
-                style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-sm text-gray-400 mt-2">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(duration)}</span>
-            </div>
-          </div>
-          
-          {/* Volume Control */}
-          <div className="flex items-center justify-center space-x-4">
-            <Volume2 size={20} className="text-gray-400" />
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              value={volume}
-              onChange={handleVolumeChange}
-              className="w-24 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
-            />
-          </div>
         </motion.div>
 
         {/* Call to Action */}

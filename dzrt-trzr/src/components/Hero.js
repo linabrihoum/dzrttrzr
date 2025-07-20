@@ -1,15 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Play, Pause, Volume2, Instagram, Twitter, Music, Cloud } from 'lucide-react';
+import { Instagram, Twitter, Music, Cloud } from 'lucide-react';
 import { useState } from 'react';
 
 const Hero = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-  };
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -118,36 +113,6 @@ const Hero = () => {
             onClick={() => document.getElementById('tour').scrollIntoView({ behavior: 'smooth' })}
           >
             Played Venues
-          </motion.button>
-        </motion.div>
-
-        {/* Mini Player */}
-        <motion.div
-          className="mt-12 flex items-center justify-center space-x-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-        >
-          <motion.button
-            onClick={togglePlay}
-            className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center hover-glow"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-          </motion.button>
-
-          <div className="text-white">
-            <div className="text-sm font-medium">Now Playing</div>
-            <div className="text-xs text-gray-400">DZRT TRZR - Latest Track</div>
-          </div>
-
-          <motion.button
-            className="w-8 h-8 text-white hover:text-primary-500 transition-colors duration-300"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <Volume2 size={20} />
           </motion.button>
         </motion.div>
 

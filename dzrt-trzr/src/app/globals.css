@@ -109,35 +109,4 @@ a:focus {
   animation: spin 1s linear infinite;
 }
 
-/* Custom slider styling */
-.slider::-webkit-slider-thumb {
-  appearance: none;
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: #ff0000;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-}
 
-.slider::-moz-range-thumb {
-  height: 16px;
-  width: 16px;
-  border-radius: 50%;
-  background: #ff0000;
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-}
-
-.slider::-webkit-slider-track {
-  background: #374151;
-  border-radius: 8px;
-  height: 8px;
-}
-
-.slider::-moz-range-track {
-  background: #374151;
-  border-radius: 8px;
-  height: 8px;
-}

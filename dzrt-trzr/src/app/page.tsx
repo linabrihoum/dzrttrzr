@@ -5,7 +5,6 @@ import Music from '../components/Music';
 import Tour from '../components/Tour';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
-import Player from '../components/Player';
 
 export default function Home() {
   return (
@@ -17,7 +16,6 @@ export default function Home() {
       <Tour />
       <Contact />
       <Footer />
-      <Player />
     </main>
   );
 }
