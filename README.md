@@ -1,5 +1,4 @@
-# DZRT TRZR
-## A dubstep DJ based in Florida
+# DZRT TRZR - A Dubstep DJ based in Florida
 
 Creating a music website for my friend :) 
 
