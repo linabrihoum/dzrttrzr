@@ -95,15 +95,15 @@ const About = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary-500">50+</div>
+                <div className="text-3xl font-bold text-primary-500">5+</div>
                 <div className="text-sm text-gray-400">Releases</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary-500">200+</div>
+                <div className="text-3xl font-bold text-primary-500">10+</div>
                 <div className="text-sm text-gray-400">Shows</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-primary-500">1M+</div>
+                <div className="text-3xl font-bold text-primary-500">20k+</div>
                 <div className="text-sm text-gray-400">Streams</div>
               </div>
             </motion.div>
@@ -154,7 +154,7 @@ const About = () => {
             className="px-8 py-4 bg-gradient-red text-white font-semibold rounded-lg hover-glow"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById('music').scrollIntoView({ behavior: 'smooth' })}
+            onClick={() => window.open('https://soundcloud.com/dzrttrzr', '_blank', 'noopener,noreferrer')}
           >
             Explore the Music
           </motion.button>

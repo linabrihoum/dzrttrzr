@@ -3,21 +3,26 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Play, Pause, ExternalLink, Heart } from 'lucide-react';
+import { Play, Pause, ExternalLink, Heart, Volume2, SkipBack, SkipForward } from 'lucide-react';
 
 const Music = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const [playingTrack, setPlayingTrack] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const audioRef = useRef(null);
 
   const releases = [
     {
       id: 1,
       title: 'DZRT TRZR Vol.1',
       artist: 'DZRT TRZR',
-      cover: '/api/placeholder/300/300',
+      cover: '/vol1.png',
       genre: 'Electronic Mix',
-      year: '2024',
+      year: '2022',
       duration: 'Mix',
       isLiked: true,
       soundcloudUrl: 'https://soundcloud.com/dzrttrzr/dzrt-trzr-vol-1?ref=clipboard&p=i&c=0&si=8DF46A9168E54C04B4F852ED621C1AAF&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
@@ -26,9 +31,9 @@ const Music = () => {
       id: 2,
       title: 'DZRT TRZR Vol.2',
       artist: 'DZRT TRZR',
-      cover: '/api/placeholder/300/300',
+      cover: '/vol2.png',
       genre: 'Electronic Mix',
-      year: '2024',
+      year: '2023',
       duration: 'Mix',
       isLiked: false,
       soundcloudUrl: 'https://soundcloud.com/dzrttrzr/dzrt-trzr-vol-2?ref=clipboard&p=i&c=0&si=F0B716C7284440DD9880A57BF323CD2A&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
@@ -37,7 +42,7 @@ const Music = () => {
       id: 3,
       title: 'DZRT TRZR Vol. 3',
       artist: 'DZRT TRZR',
-      cover: '/api/placeholder/300/300',
+      cover: '/vol3.png',
       genre: 'Electronic Mix',
       year: '2024',
       duration: 'Mix',
@@ -48,7 +53,7 @@ const Music = () => {
       id: 4,
       title: 'DZRT TRZR Vol. 4',
       artist: 'DZRT TRZR',
-      cover: '/api/placeholder/300/300',
+      cover: '/vol4.png',
       genre: 'Electronic Mix',
       year: '2024',
       duration: 'Mix',
@@ -59,7 +64,7 @@ const Music = () => {
       id: 5,
       title: 'DZRT TRZR Vol. 5',
       artist: 'DZRT TRZR',
-      cover: '/api/placeholder/300/300',
+      cover: '/vol5.png',
       genre: 'Electronic Mix',
       year: '2024',
       duration: 'Mix',
@@ -70,16 +75,16 @@ const Music = () => {
       id: 6,
       title: 'Imsety Mix',
       artist: 'DZRT TRZR',
-      cover: '/api/placeholder/300/300',
+      cover: '/imsety.png',
       genre: 'Electronic Mix',
-      year: '2024',
+      year: '2022',
       duration: 'Mix',
       isLiked: false,
       soundcloudUrl: 'https://soundcloud.com/dzrttrzr/imsety?ref=clipboard&p=i&c=0&si=B12DF3DB600F4244B158780B8B8868BA&utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing',
     },
   ];
 
-  const togglePlay = (trackId) => {
+  const toggleTrackPlay = (trackId) => {
     setPlayingTrack(playingTrack === trackId ? null : trackId);
   };
 
@@ -90,6 +95,53 @@ const Music = () => {
 
   const openSoundCloud = (url) => {
     window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const togglePlay = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  const handleLoadedMetadata = () => {
+    if (audioRef.current) {
+      setDuration(audioRef.current.duration);
+    }
+  };
+
+  const handleSeek = (e) => {
+    if (audioRef.current) {
+      const rect = e.currentTarget.getBoundingClientRect();
+      const percent = (e.clientX - rect.left) / rect.width;
+      const newTime = percent * duration;
+      audioRef.current.currentTime = newTime;
+      setCurrentTime(newTime);
+    }
+  };
+
+  const handleVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    if (audioRef.current) {
+      audioRef.current.volume = newVolume;
+    }
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -151,11 +203,11 @@ const Music = () => {
               {/* Album Cover */}
               <div className="relative aspect-square bg-gradient-dark overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-transparent"></div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-32 h-32 bg-gradient-red rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">DZRT</span>
-                  </div>
-                </div>
+                <img 
+                  src={release.cover} 
+                  alt={release.title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
                 
                 {/* Play Button Overlay */}
                 <motion.button
@@ -226,15 +278,80 @@ const Music = () => {
           ))}
         </motion.div>
 
+        {/* Audio Player for Vol.5 */}
+        <motion.div
+          className="mt-16 bg-black/50 backdrop-blur-sm border border-gray-800 rounded-lg p-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 1.0 }}
+        >
+          <div className="text-center mb-6">
+            <h3 className="text-2xl font-bold text-white mb-2">Latest Mix - Vol.5</h3>
+            <p className="text-gray-400">Listen to the full mix directly on the site</p>
+          </div>
+          
+          {/* Hidden Audio Element */}
+          <audio
+            ref={audioRef}
+            src="/vol5-audio.mp3"
+            onTimeUpdate={handleTimeUpdate}
+            onLoadedMetadata={handleLoadedMetadata}
+            onEnded={() => setIsPlaying(false)}
+          />
+          
+          {/* Player Controls */}
+          <div className="flex items-center justify-center space-x-6 mb-6">
+            <motion.button
+              onClick={togglePlay}
+              className="w-16 h-16 bg-primary-500 rounded-full flex items-center justify-center hover-glow"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+            >
+              {isPlaying ? <Pause size={24} /> : <Play size={24} />}
+            </motion.button>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="mb-4">
+            <div 
+              className="w-full h-2 bg-gray-700 rounded-full cursor-pointer relative"
+              onClick={handleSeek}
+            >
+              <div 
+                className="h-full bg-primary-500 rounded-full transition-all duration-100"
+                style={{ width: `${duration > 0 ? (currentTime / duration) * 100 : 0}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-sm text-gray-400 mt-2">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+          </div>
+          
+          {/* Volume Control */}
+          <div className="flex items-center justify-center space-x-4">
+            <Volume2 size={20} className="text-gray-400" />
+            <input
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value={volume}
+              onChange={handleVolumeChange}
+              className="w-24 h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer slider"
+            />
+          </div>
+        </motion.div>
+
         {/* Call to Action */}
         <motion.div
-          className="text-center mt-16"
+          className="text-center mt-16 relative z-10"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
           <motion.button
-            className="px-8 py-4 bg-gradient-red text-white font-semibold rounded-lg hover-glow"
+            className="px-8 py-4 bg-gradient-red text-white font-semibold rounded-lg hover-glow cursor-pointer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => window.open('https://soundcloud.com/dzrttrzr', '_blank', 'noopener,noreferrer')}
