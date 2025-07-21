@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { 
   Instagram, 
   Twitter, 
@@ -11,8 +11,17 @@ import {
 } from 'lucide-react';
 
 const Footer = () => {
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: '-20% 0px -20% 0px', amount: 0.3 });
 
   const socialLinks = [
     { name: 'Instagram', icon: <Instagram size={20} />, url: 'https://www.instagram.com/dzrt.trzr/' },
@@ -39,15 +48,15 @@ const Footer = () => {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: isMobile ? 1.2 : 0.8 }}
         >
           {/* Main Footer Content */}
           <div className="text-center mb-12">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.2 }}
+              animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.2 : 0.2 }}
             >
               <h3 className="text-3xl font-bold gradient-text mb-6">
                 DZRT TRZR
@@ -67,8 +76,8 @@ const Footer = () => {
                     rel="noopener noreferrer"
                     className="w-12 h-12 bg-black/50 border border-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-primary-500 hover:border-primary-500 transition-all duration-300"
                     initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                    animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: isMobile ? 1.0 : 0.6, delay: (isMobile ? 0.4 : 0.4) + index * 0.1 }}
                     whileHover={{ 
                       scale: 1.1,
                       boxShadow: '0 0 15px rgba(255, 0, 0, 0.3)'
@@ -85,8 +94,8 @@ const Footer = () => {
           <motion.div
             className="border-t border-gray-800 pt-8 text-center"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 1.0 }}
+            animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 1.0 : 1.0 }}
           >
             <div className="text-gray-400 text-sm">
               © 2024 DZRT TRZR. All rights reserved.

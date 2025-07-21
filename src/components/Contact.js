@@ -12,7 +12,8 @@ import {
 
 const Contact = () => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  // Use a threshold and rootMargin to make inView less sensitive
+  const isInView = useInView(ref, { once: true, margin: '-20% 0px -20% 0px', amount: 0.3 });
 
   // Mobile detection
   const [isMobile, setIsMobile] = useState(false);
@@ -62,14 +63,14 @@ const Contact = () => {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: isMobile ? 1.2 : 0.8 }}
           className="text-center mb-16"
         >
           <motion.h2
             className="text-4xl md:text-6xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.3 : 0.2 }}
           >
             Get in <span className="gradient-text">Touch</span>
@@ -77,13 +78,13 @@ const Contact = () => {
           <motion.div
             className="w-24 h-1 bg-gradient-red mx-auto mb-8"
             initial={{ width: 0 }}
-            animate={isInView ? { width: 96 } : {}}
+            animate={isMobile || isInView ? { width: 96 } : {}}
             transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.5 : 0.4 }}
           />
           <motion.p
             className="text-xl text-gray-400 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.7 : 0.6 }}
           >
             Connect with DZRT TRZR on social media and stay updated with the latest releases
@@ -93,7 +94,7 @@ const Contact = () => {
         {/* Social Links and Contact Info */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.4 : 0.3 }}
           className="max-w-4xl mx-auto"
         >
@@ -111,7 +112,7 @@ const Contact = () => {
                   rel="noopener noreferrer"
                   className="group flex flex-col items-center p-6 bg-black/50 backdrop-blur-sm border border-gray-800 rounded-lg hover:border-primary-500 transition-all duration-300 min-w-[140px]"
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: isMobile ? 1.0 : 0.6, delay: (isMobile ? 0.8 : 0.6) + index * 0.1 }}
                   whileHover={{ 
                     scale: 1.05,
@@ -133,7 +134,7 @@ const Contact = () => {
               <motion.div
                 className="flex items-center justify-center space-x-4 p-6 bg-black/50 backdrop-blur-sm border border-gray-800 rounded-lg"
                 initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
+                animate={isMobile || isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: isMobile ? 1.0 : 0.6, delay: isMobile ? 1.2 : 1.0 }}
                 whileHover={{ scale: 1.02 }}
               >

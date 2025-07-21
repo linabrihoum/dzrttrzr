@@ -2,12 +2,21 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Music, Headphones, Zap } from 'lucide-react';
 
 const About = () => {
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: '-20% 0px -20% 0px', amount: 0.3 });
 
   const features = [
     {
@@ -39,23 +48,23 @@ const About = () => {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: isMobile ? 1.2 : 0.8 }}
           className="text-center mb-16"
         >
           <motion.h2
             className="text-4xl md:text-6xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.3 : 0.2 }}
           >
             About <span className="gradient-text">DZRT TRZR</span>
           </motion.h2>
           <motion.div
             className="w-24 h-1 bg-gradient-red mx-auto mb-8"
             initial={{ width: 0 }}
-            animate={isInView ? { width: 96 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            animate={isMobile || isInView ? { width: 96 } : {}}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.5 : 0.4 }}
           />
         </motion.div>
 
@@ -63,8 +72,8 @@ const About = () => {
           {/* Bio Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            animate={isMobile || isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.4 : 0.3 }}
           >
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
               The Sound of Innovation

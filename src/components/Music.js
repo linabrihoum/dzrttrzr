@@ -2,12 +2,21 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { ExternalLink, Heart } from 'lucide-react';
 
 const Music = () => {
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
+  const isInView = useInView(ref, { once: true, margin: '-20% 0px -20% 0px', amount: 0.3 });
 
   const releases = [
     {
@@ -99,29 +108,29 @@ const Music = () => {
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: isMobile ? 1.2 : 0.8 }}
           className="text-center mb-16"
         >
           <motion.h2
             className="text-4xl md:text-6xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.3 : 0.2 }}
           >
             Latest <span className="gradient-text">Mixes</span>
           </motion.h2>
           <motion.div
             className="w-24 h-1 bg-gradient-red mx-auto mb-8"
             initial={{ width: 0 }}
-            animate={isInView ? { width: 96 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            animate={isMobile || isInView ? { width: 96 } : {}}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.5 : 0.4 }}
           />
           <motion.p
             className="text-xl text-gray-400 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            animate={isMobile || isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.7 : 0.6 }}
           >
             Explore the latest SoundCloud mixes from DZRT TRZR
           </motion.p>
