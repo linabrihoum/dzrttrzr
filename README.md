@@ -1,28 +1,6 @@
-# DZRT TRZR - Electronic Music Artist Website
+# DZRT TRZR - A Dubstep DJ based in Florida
 
-A modern, responsive website for the electronic music artist DZRT TRZR, built with Next.js 14, Tailwind CSS, and Framer Motion.
-
-## Features
-
-- **Responsive Design**: Mobile-first approach with smooth animations
-- **Dark Theme**: Black background with red accents (#ff0000 to #b30000)
-- **Smooth Animations**: Framer Motion powered animations and transitions
-- **Interactive Components**: Hover effects, parallax scrolling, and animated elements
-- **Music Player**: Mini audio player with playback controls
-- **Tour Management**: Interactive tour dates with ticket status
-- **Contact Forms**: Newsletter signup and contact forms
-- **Social Integration**: Social media links with animated icons
-
-## Sections
-
-1. **Header**: Fixed navigation with glassmorphism effect
-2. **Hero**: Animated background with floating particles and CTA buttons
-3. **About**: Artist biography with statistics and features
-4. **Music**: Grid layout of releases with play functionality
-5. **Tour**: Table format showing tour dates and ticket availability
-6. **Contact**: Social links and contact forms
-7. **Footer**: Newsletter signup and site links
-8. **Player**: Mini audio player with controls
+Creating a music website for my friend :) 
 
 ## Technologies Used
 
