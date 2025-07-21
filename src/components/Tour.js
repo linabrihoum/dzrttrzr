@@ -47,7 +47,7 @@ const Venues = () => {
     },
     {
       id: 7,
-      name: 'Tiki Lounge',
+      name: 'TK Lounge',
       location: 'Tampa, FL',
       date: 'January 2025',
       status: 'played',

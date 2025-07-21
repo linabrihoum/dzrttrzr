@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { 
   Instagram, 
   Twitter, 
@@ -14,6 +14,15 @@ import {
 const Contact = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+
+  // Mobile detection
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const socialLinks = [
     {
@@ -55,14 +64,14 @@ const Contact = () => {
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: isMobile ? 1.2 : 0.8 }}
           className="text-center mb-16"
         >
           <motion.h2
             className="text-4xl md:text-6xl font-bold text-white mb-6"
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.3 : 0.2 }}
           >
             Get in <span className="gradient-text">Touch</span>
           </motion.h2>
@@ -70,13 +79,13 @@ const Contact = () => {
             className="w-24 h-1 bg-gradient-red mx-auto mb-8"
             initial={{ width: 0 }}
             animate={isInView ? { width: 96 } : {}}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.5 : 0.4 }}
           />
           <motion.p
             className="text-xl text-gray-400 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.7 : 0.6 }}
           >
             Connect with DZRT TRZR on social media and stay updated with the latest releases
           </motion.p>
@@ -86,7 +95,7 @@ const Contact = () => {
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: isMobile ? 1.2 : 0.8, delay: isMobile ? 0.4 : 0.3 }}
           className="max-w-4xl mx-auto"
         >
           <div className="text-center mb-16">
@@ -104,7 +113,7 @@ const Contact = () => {
                   className="group flex flex-col items-center p-6 bg-black/50 backdrop-blur-sm border border-gray-800 rounded-lg hover:border-primary-500 transition-all duration-300 min-w-[140px]"
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.6 + index * 0.1 }}
+                  transition={{ duration: isMobile ? 1.0 : 0.6, delay: (isMobile ? 0.8 : 0.6) + index * 0.1 }}
                   whileHover={{ 
                     scale: 1.05,
                     boxShadow: '0 0 20px rgba(255, 0, 0, 0.3)'
@@ -121,12 +130,12 @@ const Contact = () => {
             </div>
 
             {/* Contact Info */}
-            <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 place-items-center gap-8 max-w-2xl mx-auto">
               <motion.div
                 className="flex items-center justify-center space-x-4 p-6 bg-black/50 backdrop-blur-sm border border-gray-800 rounded-lg"
                 initial={{ opacity: 0, x: -20 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: 1.0 }}
+                transition={{ duration: isMobile ? 1.0 : 0.6, delay: isMobile ? 1.2 : 1.0 }}
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center">
@@ -134,23 +143,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="text-white font-semibold">Email</h4>
-                  <p className="text-gray-400">contact@dzrttrzr.com</p>
-                </div>
-              </motion.div>
-              
-              <motion.div
-                className="flex items-center justify-center space-x-4 p-6 bg-black/50 backdrop-blur-sm border border-gray-800 rounded-lg"
-                initial={{ opacity: 0, x: 20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: 1.1 }}
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="w-12 h-12 bg-primary-500 rounded-full flex items-center justify-center">
-                  <MessageCircle size={20} className="text-white" />
-                </div>
-                <div>
-                  <h4 className="text-white font-semibold">Management</h4>
-                  <p className="text-gray-400">management@dzrttrzr.com</p>
+                  <p className="text-gray-400">dzrttrzrmusic@gmail.com</p>
                 </div>
               </motion.div>
             </div>
