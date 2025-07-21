@@ -7,8 +7,7 @@ import {
   Instagram, 
   Twitter, 
   Cloud,
-  Mail,
-  MessageCircle
+  Mail
 } from 'lucide-react';
 
 const Contact = () => {
